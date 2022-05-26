@@ -12,7 +12,7 @@ cols = ['Area (ABD)', 'Area (Filled)', 'Aspect Ratio', 'Biovolume (Cylinder)',
         'Perimeter', 'Roughness', 'Sigma Intensity', 'Sum Intensity',
         'Symmetry', 'Transparency', 'Volume (ABD)', 'Volume (ESD)', 'Width'] #go through the rest of the columns
 
-types = ['camp', 'corylus', 'dust', 'grim', 'qrob', 'qsub'] #which are pollen?
+types = ['camp', 'corylus', 'dust', 'grim', 'qrob', 'qsub', 'cont'] #which are pollen?
 
 image_size = 128
 
