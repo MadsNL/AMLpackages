@@ -83,3 +83,38 @@ class training_set():
         xfeatures = self.X_features[idx]
 
         return image, label, xfeatures
+
+
+class training_set_RGB():
+    def __init__(self, df, location_for_folder):
+        self.df = df
+        self.X_features_names = cols
+        self.imgpaths = df['imgpaths'].to_numpy()
+        type_list = df[types].values
+        self.labels = np.argmax(type_list, axis=1)
+        for i in range(len(self.imgpaths)):
+            spl = self.imgpaths[i].split('/')
+            self.imgpaths[i] = location_for_folder + spl[-2] + '/' + spl[-1]
+        scaler = StandardScaler()
+        self.X_features = scaler.fit_transform(df[cols])
+
+    def __getitem__(self, idx):
+        imgpath = self.imgpaths[idx]
+        image = Image.open(imgpath)
+        image = image.resize((image_size, image_size))
+        # make gray_scale?
+        #image = image.convert('L')
+        image = image.convert('RGB')
+        # A norm?
+        image = np.array(image).astype('float')
+        # for i in range(3):
+        mi = np.min(image)
+        ma = np.max(image)
+        image -= mi
+        image *= (1.0/(ma-mi))
+
+        label = self.labels[idx]
+
+        xfeatures = self.X_features[idx]
+
+        return image, label, xfeatures
