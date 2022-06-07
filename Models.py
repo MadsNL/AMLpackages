@@ -36,3 +36,31 @@ def make_autoencoder(latent_dim=128):
   autoencoder.compile(opt, loss='mse')
   
   return encoder, autoencoder
+
+
+def make_NN(n_layers=3, n1=376, n2=475, input_length=162):
+
+  dense_input = keras.Input(shape=(input_length))
+  x = keras.layers.Dense(n1, activation='relu')(dense_input)
+  x = keras.layers.Dropout(0.2)(x)
+  x = keras.layers.BatchNormalization(momentum=0.9, center=True, scale=True)(x)
+  for i in range(n_layers):
+    x = keras.layers.Dense(n2, activation='relu')(x)
+    x = keras.layers.Dropout(0.2)(x)
+    x = keras.layers.BatchNormalization(momentum=0.9, center=True, scale=True)(x)
+  x = keras.layers.Dense(n1, activation='relu')(x)
+  
+  dense_last_layer = keras.model(dense_input, x, name='last_layer')
+  
+  x = keras.layers.Dropout(0.2)(x)
+  x = keras.layers.BatchNormalization(momentum=0.9, center=True, scale=True)(x)
+  dense_output = keras.layers.Dense(7, activation='softmax')(x)
+
+  dense_model = keras.Model(dense_input, dense_output, name='dense_model')
+
+  opt = keras.optimizers.Adam(lr=0.001, decay=1e-6)
+
+  dense_last_layer.compile(opt, loss='SparseCategoricalCrossentropy', metrics=['accuracy'])
+  dense_model.compile(opt, loss='SparseCategoricalCrossentropy', metrics=['accuracy'])
+
+  return dense_model
