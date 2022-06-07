@@ -63,4 +63,4 @@ def make_NN(n_layers=3, n1=376, n2=475, input_length=162):
   dense_last_layer.compile(opt, loss='SparseCategoricalCrossentropy', metrics=['accuracy'])
   dense_model.compile(opt, loss='SparseCategoricalCrossentropy', metrics=['accuracy'])
 
-  return dense_model
+  return dense_model, dense_last_layer
