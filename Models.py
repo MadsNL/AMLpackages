@@ -50,7 +50,7 @@ def make_NN(n_layers=3, n1=376, n2=475, input_length=162):
     x = keras.layers.BatchNormalization(momentum=0.9, center=True, scale=True)(x)
   x = keras.layers.Dense(n1, activation='relu')(x)
   
-  dense_last_layer = keras.model(dense_input, x, name='last_layer')
+  dense_last_layer = keras.Model(dense_input, x, name='last_layer')
   
   x = keras.layers.Dropout(0.2)(x)
   x = keras.layers.BatchNormalization(momentum=0.9, center=True, scale=True)(x)
