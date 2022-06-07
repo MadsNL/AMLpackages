@@ -14,8 +14,8 @@ def make_autoencoder(latent_dim=128):
 
   encoder = keras.Model(encoder_input, encoder_output, name='encoder')
 
-  decoder_input = keras.layers.InputLayer(input_shape=latent_dim)(encoder_output)
-  x = keras.layers.Dense(units=unit_n*unit_n*32, activation=tf.nn.relu)(decoder_input)
+  #decoder_input = keras.layers.InputLayer(input_shape=latent_dim)(encoder_output)
+  x = keras.layers.Dense(units=unit_n*unit_n*32, activation=tf.nn.relu)(encoder_output)
   x = keras.layers.Reshape(target_shape=(unit_n, unit_n, 32))(x)
   x = keras.layers.Conv2DTranspose(
       filters=64, kernel_size=3, strides=2, padding='same',
