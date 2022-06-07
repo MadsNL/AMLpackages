@@ -2,7 +2,7 @@ import tensorflow as tf
 from tensorflow import keras
 
 
-def autoencoder(latent_dim=128):
+def make_autoencoder(latent_dim=128):
   image_size= 128
   unit_n = 32
 
