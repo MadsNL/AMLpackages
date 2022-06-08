@@ -18,6 +18,8 @@ types = ['camp', 'corylus', 'dust', 'grim', 'qrob', 'qsub', 'cont'] #which are p
 
 image_size = 128
 
+scaler_stuff = 0
+
 
 class not_training_set():
     def __init__(self, df, location_for_folder):
@@ -62,6 +64,7 @@ class training_set():
             self.imgpaths[i] = location_for_folder + spl[-2] + '/' + spl[-1]
         scaler = StandardScaler()
         self.X_features = scaler.fit_transform(df[cols])
+        global scalar_stuff = scalar
 
     def __getitem__(self, idx):
         imgpath = self.imgpaths[idx]
